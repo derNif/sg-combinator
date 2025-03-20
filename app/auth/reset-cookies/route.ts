@@ -19,7 +19,7 @@ export async function GET(req: NextRequest) {
     httpOnly: true,
     secure: !isLocalhost,
     path: '/',
-    sameSite: 'lax',
+    sameSite: 'lax' as const,
     maxAge: 0,
   };
   
