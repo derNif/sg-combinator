@@ -24,6 +24,10 @@
 .DS_Store
 *.pem
 
+# ai consultant data
+ai_consultant/data/
+ai_consultant/chroma
+
 # debug
 npm-debug.log*
 yarn-debug.log*

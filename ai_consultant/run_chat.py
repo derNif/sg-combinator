@@ -31,14 +31,16 @@ Answer the question based on the above context: {question}
 """
 
 PROMPT_TEMPLATE = """
-You are an experienced startup consultant helping early-stage businesses make strategic decisions.  
-Your task is to analyze the user's problem, extract relevant consulting principles from case studies, and apply them to the user's specific context.  
+You are an experienced startup consultant helping early-stage businesses make strategic decisions. You are talking to a user who potentially is in this position and is looking for advice. 
+Your task is to analyze the user's problem, extract relevant consulting principles from case studies, and apply them to the user's specific problem. 
+Do NOT directly recite content from the context, but apply the patterns and concepts from the context to the user's specific problem.
+If sensible, create a solution-oriented approach and structure it for clear understanding and easy-to-follow implementation.
 
-## User Problem:
+## ---User Problem---:
 
 {question}  
 
-## Relevant Case Studies & Insights:
+## ---Relevant Case Studies & Insights---:
 
 {context}  
 
@@ -70,14 +72,17 @@ def main():
 
         # Search the DB.
         results = db.similarity_search_with_relevance_scores(query_text, k=3)
-        if len(results) == 0 or results[0][1] < 0.7:
-            print(f"Unable to find matching results.")
+        if len(results) == 0:
+            print(f"Unable to find any matching results.")
+            break
+        if results[0][1] < 0.7:
+            print(f"Not enough relevant results found.")
             break
 
         context_text = "\n\n---\n\n".join([doc.page_content for doc, _score in results])
         prompt_template = ChatPromptTemplate.from_template(PROMPT_TEMPLATE)
         prompt = prompt_template.format(context=context_text, question=query_text)
-        #print(prompt)
+        print(prompt)
 
         #response_text = model.predict(prompt)
         response = chat.invoke(prompt)
@@ -87,6 +92,7 @@ def main():
         #formatted_response = f"Response: {response_text}\nSources: {sources}"
         formatted_response = f"Response: {response_text}"
         print("\n\n", formatted_response)
+        #print("\n\n\n", sources)
 
 
 if __name__ == "__main__":
