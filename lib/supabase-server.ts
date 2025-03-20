@@ -9,14 +9,40 @@ export const createServerSupabaseClient = () => {
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
     {
       cookies: {
-        get(name: string) {
-          return cookieStore.get(name)?.value
+        async get(name: string) {
+          try {
+            const cookie = cookieStore.get(name);
+            return cookie?.value;
+          } catch (error) {
+            console.error(`Error getting cookie ${name}:`, error);
+            return undefined;
+          }
         },
-        set(name: string, value: string, options: { path: string; maxAge: number; sameSite: string }) {
-          cookieStore.set({ name, value, ...options })
+        async set(name: string, value: string, options: { path: string; maxAge: number; sameSite: string }) {
+          try {
+            cookieStore.set({ 
+              name, 
+              value, 
+              ...options, 
+              httpOnly: true,
+              secure: process.env.NODE_ENV === 'production' 
+            });
+          } catch (error) {
+            console.error('Error setting cookie:', error);
+          }
         },
-        remove(name: string, options: { path: string }) {
-          cookieStore.set({ name, value: '', ...options, maxAge: 0 })
+        async remove(name: string, options: { path: string }) {
+          try {
+            cookieStore.set({ 
+              name, 
+              value: '', 
+              ...options, 
+              maxAge: 0,
+              httpOnly: true 
+            });
+          } catch (error) {
+            console.error('Error removing cookie:', error);
+          }
         },
       },
     }

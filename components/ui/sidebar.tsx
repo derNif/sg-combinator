@@ -5,6 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React, { useState, createContext, useContext } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import Image from "next/image";
 import { 
   IconHome,
   IconUser,
@@ -14,8 +15,23 @@ import {
   IconLogin,
   IconMenu2,
   IconX,
-  IconLeaf,
-  IconUserCircle
+  IconUserCircle,
+  IconBook,
+  IconChevronDown,
+  IconChevronUp,
+  IconZoomCode,
+  IconLayout,
+  IconBrandOpenai,
+  IconLink,
+  IconUsers,
+  IconSettings,
+  IconMessage,
+  IconFolders,
+  IconDots,
+  IconCodeDots,
+  IconRocket,
+  IconFlame,
+  IconUserPlus
 } from "@tabler/icons-react";
 import { useAuth } from "../auth/auth-provider";
 
@@ -70,6 +86,9 @@ export function Sidebar() {
   const { user } = useAuth();
   const pathname = usePathname();
   
+  // Check if user is admin
+  const isAdmin = user?.email === "admin@sgcombinator.com";
+  
   const links: Links[] = [
     {
       label: "Home",
@@ -89,12 +108,6 @@ export function Sidebar() {
       requiresAuth: true
     },
     {
-      label: "Academy",
-      href: "/academy",
-      icon: <IconSchool size={22} stroke={1.5} />,
-      requiresAuth: true
-    },
-    {
       label: "Job Listings",
       href: "/jobs",
       icon: <IconBriefcase size={22} stroke={1.5} />,
@@ -108,8 +121,8 @@ export function Sidebar() {
         <div className="flex flex-col justify-between h-full">
           <div>
             <div className="p-4 flex items-center">
-              <div className="flex items-center justify-center w-10 h-10 rounded-full bg-emerald-100 text-emerald-600">
-                <IconLeaf size={20} stroke={2} />
+              <div className="flex items-center justify-center w-10 h-10 rounded-full bg-white-100">
+                <Image src="/logo.svg" alt="SG Combinator Logo" width={18} height={18} />
               </div>
               <motion.span
                 animate={{
@@ -131,6 +144,92 @@ export function Sidebar() {
                   active={pathname === link.href} 
                 />
               ))}
+              
+              {/* Academy section with sublinks */}
+              <div className="mb-2">
+                <Link
+                  href="/academy"
+                  className={cn(
+                    "flex items-center group/sidebar py-2 px-2 rounded-lg hover:bg-gray-100 transition-colors",
+                    pathname === "/academy" 
+                      ? "bg-gray-50 font-medium" 
+                      : pathname.startsWith("/academy") 
+                      ? "bg-gray-50/50" 
+                      : ""
+                  )}
+                >
+                  <div className={cn(
+                    "w-9 h-9 flex items-center justify-center rounded-md",
+                    pathname.startsWith("/academy") ? "bg-emerald-100 text-emerald-600" : "text-gray-600"
+                  )}>
+                    <IconSchool size={22} stroke={1.5} />
+                  </div>
+                  <motion.span
+                    animate={{
+                      opacity: open ? 1 : 0,
+                      width: open ? "auto" : 0,
+                    }}
+                    transition={{ duration: 0.2 }}
+                    className={cn(
+                      "text-gray-700 text-sm font-medium group-hover/sidebar:translate-x-1 transition duration-150 whitespace-nowrap overflow-hidden ml-2",
+                      pathname.startsWith("/academy") && "font-semibold text-black"
+                    )}
+                  >
+                    Academy
+                  </motion.span>
+                </Link>
+                
+                {/* Sublinks - only shown when Academy is active */}
+                {open && pathname.startsWith("/academy") && (
+                  <div className="ml-11 mt-1 space-y-1 border-l pl-2 border-gray-200">
+                    <Link
+                      href="/academy/courses"
+                      className={cn(
+                        "block py-1.5 px-2 text-sm rounded-md transition-colors",
+                        pathname === "/academy/courses" || pathname.startsWith("/academy/courses/")
+                          ? "text-emerald-700 font-medium bg-emerald-50"
+                          : "text-gray-600 hover:text-gray-900 hover:bg-gray-50"
+                      )}
+                    >
+                      Courses
+                    </Link>
+                    <Link
+                      href="/academy/forum"
+                      className={cn(
+                        "block py-1.5 px-2 text-sm rounded-md transition-colors",
+                        pathname === "/academy/forum" || pathname.startsWith("/academy/forum/")
+                          ? "text-emerald-700 font-medium bg-emerald-50"
+                          : "text-gray-600 hover:text-gray-900 hover:bg-gray-50"
+                      )}
+                    >
+                      Forum
+                    </Link>
+                    <Link
+                      href="/academy/chatbot"
+                      className={cn(
+                        "block py-1.5 px-2 text-sm rounded-md transition-colors",
+                        pathname === "/academy/chatbot"
+                          ? "text-emerald-700 font-medium bg-emerald-50"
+                          : "text-gray-600 hover:text-gray-900 hover:bg-gray-50"
+                      )}
+                    >
+                      AI Assistant
+                    </Link>
+                  </div>
+                )}
+              </div>
+              
+              {/* Admin Section: Onboarding */}
+              {isAdmin && (
+                <SidebarLink 
+                  link={{
+                    label: "Onboarding",
+                    href: "/onboarding",
+                    icon: <IconUserPlus size={22} stroke={1.5} />
+                  }} 
+                  active={pathname === "/onboarding" || pathname.startsWith("/onboarding")} 
+                />
+              )}
             </div>
           </div>
           <div className="p-4 border-t border-black/5">
@@ -210,8 +309,8 @@ export const MobileSidebar = ({
         {...props}
       >
         <div className="flex items-center">
-          <div className="flex items-center justify-center w-10 h-10 rounded-full bg-emerald-100 text-emerald-600">
-            <IconLeaf size={20} stroke={2} />
+          <div className="flex items-center justify-center w-10 h-10 rounded-full bg-emerald-100">
+            <Image src="/logo.svg" alt="SG Combinator Logo" width={18} height={18} />
           </div>
           <h1 className="font-semibold text-xl ml-3 text-black">
             SG Combinator

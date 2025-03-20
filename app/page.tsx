@@ -4,11 +4,11 @@ import {
   IconSchool, 
   IconBriefcase, 
   IconRobot,
-  IconArrowRight,
-  IconLeaf
+  IconArrowRight
 } from "@tabler/icons-react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import Image from "next/image";
 
 export default function Home() {
   return (
@@ -16,7 +16,7 @@ export default function Home() {
       <div className="max-w-4xl mx-auto mb-16 text-center">
         <div className="inline-flex items-center justify-center p-2 bg-emerald-50 rounded-full mb-6">
           <div className="flex items-center text-emerald-700 text-sm font-medium px-3 py-1">
-            <IconLeaf size={16} className="mr-2" />
+            <Image src="/logo.svg" alt="SG Combinator Logo" width={12} height={12} className="mr-2" />
             <span>Accelerating Innovation in St. Gallen</span>
           </div>
         </div>

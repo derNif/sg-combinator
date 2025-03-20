@@ -1,0 +1,26 @@
+-- SG Combinator Database Migration Execution Order
+--
+-- This file explains the order in which the migration files should be executed.
+-- The order is important due to dependencies between tables.
+--
+-- Execution order:
+--   1. 01_core_schema.sql - Core schema with profiles table and utility functions
+--   2. 02_founder_matching.sql - Founder matching feature
+--   3. 03_jobs.sql - Job listings feature
+--   4. 04_academy.sql - Academy feature with courses, forum, and chatbot
+--   5. 05_ai_consultant.sql - AI consultant feature
+--   6. 07_onboarding.sql - Onboarding process and user flow tracking
+--   7. 08_updated_onboarding.sql - Updated onboarding tables and schema
+--
+-- Note: Before running these migrations, make sure Supabase Auth is properly set up.
+-- These migration files assume that the auth.users table already exists.
+--
+-- To run these migrations:
+--   1. Go to Supabase Dashboard > SQL Editor
+--   2. Either:
+--      a. Open each SQL file in order and run them individually
+--      b. Combine all files into a single SQL script and run them together
+--
+-- After running migrations, verify that all tables and functions were created successfully.
+-- You may want to check that RLS policies are working as expected by testing access
+-- with different user accounts. 
