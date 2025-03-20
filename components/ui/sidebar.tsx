@@ -67,9 +67,8 @@ export const SidebarProvider = ({
 
 export function Sidebar() {
   const [open, setOpen] = useState(true);
-  const { user, signOut } = useAuth();
+  const { user } = useAuth();
   const pathname = usePathname();
-  const router = useRouter();
   
   const links: Links[] = [
     {
