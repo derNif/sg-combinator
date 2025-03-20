@@ -27,7 +27,7 @@ export type OnboardingData = {
 interface OnboardingFlowProps {
   userId: string;
   userEmail?: string;
-  initialUserData?: any;
+  initialUserData?: Partial<OnboardingData>;
 }
 
 export default function OnboardingFlow({ userId, userEmail, initialUserData }: OnboardingFlowProps) {

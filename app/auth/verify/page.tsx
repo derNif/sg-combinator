@@ -19,7 +19,7 @@ export default function VerifyPage() {
             </div>
             <CardTitle className="text-2xl">Check your email</CardTitle>
             <CardDescription>
-              We've sent a verification link to {email || "your email address"}
+              We&apos;ve sent a verification link to {email || "your email address"}
             </CardDescription>
           </CardHeader>
           <CardContent className="pt-4 text-center space-y-6">
@@ -27,7 +27,7 @@ export default function VerifyPage() {
               Please click the link in your email to verify your account and complete setup.
             </p>
             <p className="text-sm text-gray-500">
-              If you don't see the email in your inbox, please check your spam folder.
+              If you don&apos;t see the email in your inbox, please check your spam folder.
             </p>
             <div className="flex flex-col gap-2">
               <Button variant="outline" asChild>

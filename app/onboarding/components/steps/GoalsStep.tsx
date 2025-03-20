@@ -58,7 +58,7 @@ export default function GoalsStep({ onSubmit, onBack, initialData }: GoalsStepPr
     {
       value: "find-cofounder",
       label: "Find a co-founder",
-      description: "I'm looking for partners to start something with"
+      description: "I&apos;m looking for partners to start something with"
     },
     {
       value: "grow-business", 
@@ -107,7 +107,7 @@ export default function GoalsStep({ onSubmit, onBack, initialData }: GoalsStepPr
     <div className="space-y-6">
       <div>
         <h2 className="text-2xl font-bold mb-2">Your Goals</h2>
-        <p className="text-gray-600">Tell us what you're looking to achieve.</p>
+        <p className="text-gray-600">Tell us what you&apos;re looking to achieve.</p>
       </div>
       
       <form onSubmit={handleSubmit} className="space-y-4">

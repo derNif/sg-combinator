@@ -18,13 +18,13 @@ export default function ConfirmPage() {
             </div>
             <CardTitle className="text-2xl text-center">Check Your Email</CardTitle>
             <CardDescription className="text-center">
-              We've sent a confirmation link to your email address.
+              We&apos;ve sent a confirmation link to your email address.
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-4 text-center">
             <p className="text-sm text-gray-600">
               Please check your inbox and click on the confirmation link to activate your account.
-              If you don't see the email, check your spam folder.
+              If you don&apos;t see the email, check your spam folder.
             </p>
           </CardContent>
           <CardFooter className="flex flex-col space-y-4">
@@ -34,7 +34,7 @@ export default function ConfirmPage() {
               </Link>
             </Button>
             <p className="text-xs text-gray-500 text-center">
-              If you haven't received the email after a few minutes,
+              If you haven&apos;t received the email after a few minutes,
               try signing in with the email and password you provided.
             </p>
           </CardFooter>

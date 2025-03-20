@@ -2,7 +2,6 @@
 
 import { useRef, useEffect } from "react";
 import { useChat } from "ai/react";
-import { useRouter } from "next/navigation";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -13,7 +12,6 @@ import { IconChevronLeft, IconArrowUp, IconRobot, IconUser, IconRefresh } from "
 export default function ChatbotPage() {
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const chatId = useRef(nanoid()).current;
-  const router = useRouter();
 
   const { messages, input, handleInputChange, handleSubmit, isLoading, setMessages } = useChat({
     api: '/api/chat',

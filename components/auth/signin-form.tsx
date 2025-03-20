@@ -58,7 +58,7 @@ export function SignInForm() {
       console.error("Sign in error:", err);
       setError(err instanceof Error ? err.message : 'An unknown error occurred');
       
-      // If there's an authentication error, let's offer to reset cookies
+      // If there&apos;s an authentication error, let&apos;s offer to reset cookies
       if (err instanceof Error && (
         err.message.includes('cookie') || 
         err.message.includes('token') || 
@@ -152,7 +152,7 @@ export function SignInForm() {
       </CardContent>
       <CardFooter className="flex justify-center border-t pt-4">
         <p className="text-sm text-gray-600">
-          Don't have an account?{" "}
+          Don&apos;t have an account?{" "}
           <a href={`/auth/signup${redirectPath !== "/" ? `?redirect=${redirectPath}` : ""}`} className="text-emerald-600 font-medium hover:text-emerald-500">
             Sign Up
           </a>

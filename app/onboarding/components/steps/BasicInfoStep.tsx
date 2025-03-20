@@ -37,7 +37,7 @@ export default function BasicInfoStep({ onSubmit, initialData }: BasicInfoStepPr
     <div className="space-y-6">
       <div>
         <h2 className="text-2xl font-bold mb-2">Personal Information</h2>
-        <p className="text-gray-600">Let's start with some basic information about you.</p>
+        <p className="text-gray-600">Let&apos;s start with some basic information about you.</p>
       </div>
       
       <form onSubmit={handleSubmit} className="space-y-4">

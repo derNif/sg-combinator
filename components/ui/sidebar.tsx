@@ -16,21 +16,6 @@ import {
   IconMenu2,
   IconX,
   IconUserCircle,
-  IconBook,
-  IconChevronDown,
-  IconChevronUp,
-  IconZoomCode,
-  IconLayout,
-  IconBrandOpenai,
-  IconLink,
-  IconUsers,
-  IconSettings,
-  IconMessage,
-  IconFolders,
-  IconDots,
-  IconCodeDots,
-  IconRocket,
-  IconFlame,
   IconUserPlus
 } from "@tabler/icons-react";
 import { useAuth } from "../auth/auth-provider";

@@ -7,9 +7,6 @@ import { Input } from "@/components/ui/input";
 import Link from "next/link";
 import { 
   IconChevronLeft, 
-  IconMessageCircle, 
-  IconUser, 
-  IconClock,
   IconHeart,
   IconMessageDots,
   IconPlus

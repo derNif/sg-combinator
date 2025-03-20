@@ -11,22 +11,21 @@ import {
   IconCheck, 
   IconClock,
   IconUser,
-  IconCertificate,
   IconList,
   IconBulb,
   IconRocket
 } from "@tabler/icons-react";
 
-// This represents the course structure for YC's 22 Advices
+// This represents the course structure for YC&apos;s 22 Advices
 // In a real app, this would come from a database
 const ycAdviceContent = [
   {
     id: 1,
     title: "Launch Now",
-    explanation: "Many startups make the mistake of waiting too long to launch their product. YC advises launching as soon as you have a minimum viable product, even if it's embarrassingly simple. Early feedback from real users is far more valuable than perfecting features in isolation.",
+    explanation: "Many startups make the mistake of waiting too long to launch their product. YC advises launching as soon as you have a minimum viable product, even if it&apos;s embarrassingly simple. Early feedback from real users is far more valuable than perfecting features in isolation.",
     realWorldExample: "Dropbox launched with a simple video demonstration before the actual product was ready. This allowed them to validate demand and gather a waitlist of interested users. Airbnb started with just a simple website offering air mattresses in the founders' apartment during a design conference.",
     keyPoints: [
-      "Don't wait for perfect; launch with an MVP",
+      "Don&apos;t wait for perfect; launch with an MVP",
       "Early user feedback is invaluable",
       "You can always improve post-launch"
     ]
@@ -39,13 +38,13 @@ const ycAdviceContent = [
     keyPoints: [
       "Talk to potential users before and while building",
       "Solve real problems, not interesting technical challenges",
-      "If users don't get excited, pivot quickly"
+      "If users don&apos;t get excited, pivot quickly"
     ]
   },
   {
     id: 3,
-    title: "Do Things That Don't Scale",
-    explanation: "In the early days, do things manually that you'll eventually automate. Personally recruit your first users, provide extraordinarily good customer service, and take extreme measures to make those early users happy. This unscalable attention ensures you build the right product.",
+    title: "Do Things That Don&apos;t Scale",
+    explanation: "In the early days, do things manually that you&apos;ll eventually automate. Personally recruit your first users, provide extraordinarily good customer service, and take extreme measures to make those early users happy. This unscalable attention ensures you build the right product.",
     realWorldExample: "Airbnb founders went door-to-door in New York to help hosts take professional photos of their listings. DoorDash founders delivered food orders themselves in the early days to understand the delivery process intimately.",
     keyPoints: [
       "Manually recruit your early users",
@@ -60,7 +59,7 @@ const ycAdviceContent = [
 const quizQuestions = [
   {
     id: 1,
-    question: "According to YC's advice, when should you launch your product?",
+    question: "According to YC&apos;s advice, when should you launch your product?",
     options: [
       "As soon as you have a minimum viable product",
       "After extensive private beta testing",
@@ -82,12 +81,12 @@ const quizQuestions = [
   },
   {
     id: 3,
-    question: "What does 'Do Things That Don't Scale' mean?",
+    question: "What does 'Do Things That Don&apos;t Scale' mean?",
     options: [
       "Focus on small markets first",
       "Manually provide extraordinary service to early users",
       "Keep your team small as long as possible",
-      "Don't worry about infrastructure"
+      "Don&apos;t worry about infrastructure"
     ],
     correctAnswer: 1
   }
@@ -116,7 +115,7 @@ export default async function YCAdvicePage() {
         
         <div className="flex flex-col md:flex-row gap-8 mb-8">
           <div className="w-full md:w-2/3">
-            <h1 className="text-3xl font-bold mb-2">YC's 22 Advices for Startups</h1>
+            <h1 className="text-3xl font-bold mb-2">YC&apos;s 22 Advices for Startups</h1>
             <p className="text-gray-600 mb-6">
               Essential advice from Y Combinator for building successful startups
             </p>
@@ -142,7 +141,7 @@ export default async function YCAdvicePage() {
             <div className="bg-white/80 backdrop-blur-sm rounded-lg border border-gray-100 p-6 mb-8">
               <h2 className="text-xl font-bold mb-4">About This Course</h2>
               <p className="text-gray-600 mb-4">
-                Y Combinator's advice has helped shape thousands of successful startups. 
+                Y Combinator&apos;s advice has helped shape thousands of successful startups. 
                 This course distills their most important lessons into actionable insights 
                 for founders at any stage.
               </p>
@@ -158,7 +157,7 @@ export default async function YCAdvicePage() {
                 />
                 <InfoCard
                   icon={<IconBulb size={20} />}
-                  title="What You'll Learn"
+                  title="What You&apos;ll Learn"
                   description="Proven strategies for startup success"
                 />
                 <InfoCard
@@ -192,7 +191,7 @@ export default async function YCAdvicePage() {
                   </Button>
                 </div>
                 <div className="mt-6 pt-6 border-t">
-                  <h3 className="font-medium mb-2">What's Included</h3>
+                  <h3 className="font-medium mb-2">What&apos;s Included</h3>
                   <ul className="space-y-2">
                     <FeatureItem text="22 Startup Advice Lessons" />
                     <FeatureItem text="Real-world YC Company Examples" />
