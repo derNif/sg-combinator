@@ -1,9 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { cookies } from 'next/headers';
 
 export async function GET(req: NextRequest) {
-  const cookieStore = cookies();
-  
   // Get hostname for cookie settings
   const hostname = req.headers.get('host') || '';
   const isLocalhost = hostname.includes('localhost');
@@ -35,11 +32,17 @@ export async function GET(req: NextRequest) {
     }
   }
   
+  // Create a response
+  const response = NextResponse.redirect(new URL('/auth/signin?message=cookies_reset', req.url));
+  
   // Clear all potential auth cookies
   for (const cookieName of supabaseAuthCookies) {
-    cookieStore.set(cookieName, '', cookieOptions);
+    response.cookies.set({
+      name: cookieName,
+      value: '',
+      ...cookieOptions
+    });
   }
   
-  // Redirect back to signin page with a message
-  return NextResponse.redirect(new URL('/auth/signin?message=cookies_reset', req.url));
+  return response;
 } 

@@ -8,8 +8,6 @@ export async function GET(req: NextRequest) {
   const next = searchParams.get('next') || '/';
   
   if (code) {
-    const cookieStore = cookies();
-    
     // Get hostname for cookie settings
     const hostname = req.headers.get('host') || '';
     const isLocalhost = hostname.includes('localhost');
@@ -20,7 +18,7 @@ export async function GET(req: NextRequest) {
       {
         cookies: {
           get(name) {
-            return cookieStore.get(name)?.value;
+            return req.cookies.get(name)?.value;
           },
           set(name, value, options) {
             // Add production-specific cookie settings
@@ -41,7 +39,13 @@ export async function GET(req: NextRequest) {
               }
             }
             
-            cookieStore.set(name, value, cookieOptions);
+            const response = NextResponse.next();
+            response.cookies.set({
+              name,
+              value,
+              ...cookieOptions
+            });
+            return response;
           },
           remove(name, options) {
             // Add production-specific cookie settings
@@ -63,7 +67,13 @@ export async function GET(req: NextRequest) {
               }
             }
             
-            cookieStore.set(name, '', cookieOptions);
+            const response = NextResponse.next();
+            response.cookies.set({
+              name,
+              value: '',
+              ...cookieOptions
+            });
+            return response;
           },
         },
       }
