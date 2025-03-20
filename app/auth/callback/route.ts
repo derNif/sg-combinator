@@ -1,6 +1,10 @@
 import { createServerClient, type CookieOptions } from '@supabase/ssr';
 import { NextRequest, NextResponse } from 'next/server';
 
+interface ExtendedCookieOptions extends CookieOptions {
+  domain?: string;
+}
+
 export async function GET(req: NextRequest) {
   const { searchParams } = new URL(req.url);
   const code = searchParams.get('code');
@@ -21,7 +25,7 @@ export async function GET(req: NextRequest) {
           },
           set: (name: string, value: string, options: CookieOptions) => {
             // Add production-specific cookie settings
-            const cookieOptions = {
+            const cookieOptions: ExtendedCookieOptions = {
               ...options,
               httpOnly: true,
               secure: !isLocalhost,
@@ -33,7 +37,6 @@ export async function GET(req: NextRequest) {
             if (!isLocalhost) {
               const domain = hostname.split(':')[0];
               if (!domain.includes('localhost')) {
-                // @ts-expect-error - domain is valid option
                 cookieOptions.domain = domain;
               }
             }
@@ -46,7 +49,7 @@ export async function GET(req: NextRequest) {
           },
           remove: (name: string, options: CookieOptions) => {
             // Add production-specific cookie settings
-            const cookieOptions = {
+            const cookieOptions: ExtendedCookieOptions = {
               ...options,
               httpOnly: true,
               secure: !isLocalhost,
@@ -59,7 +62,6 @@ export async function GET(req: NextRequest) {
             if (!isLocalhost) {
               const domain = hostname.split(':')[0];
               if (!domain.includes('localhost')) {
-                // @ts-expect-error - domain is valid option
                 cookieOptions.domain = domain;
               }
             }
