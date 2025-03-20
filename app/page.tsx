@@ -9,10 +9,38 @@ import {
 } from "@tabler/icons-react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import UserProfile from "@/components/UserProfile";
+
+// Hot Topics Data
+const hotTopics = [
+  { title: "AI in Startups", description: "How AI is transforming businesses", link: "/ai-startups" },
+  { title: "Fundraising 101", description: "Best ways to raise capital", link: "/fundraising" },
+  { title: "Co-Founder Matching", description: "Find your startup partner", link: "/founder-matching" },
+  { title: "Web3 & Crypto", description: "Future of decentralized apps", link: "/web3" },
+];
 
 export default function Home() {
+  // Example user
+  const user = {
+    profilePicUrl: "/pp.jpeg",
+    name: "Jane Doe",
+    bio: "Startup founder, mentor, and lifelong learner.",
+    reputation: 12345,
+    goldCount: 10,
+    silverCount: 20,
+    bronzeCount: 30,
+  };
+
+  // Example tasks for next badges
+  const nextBadgeTasks = [
+    "Complete 5 more mentor sessions",
+    "Post 3 more startup ideas",
+    "Participate in a startup event",
+  ];
   return (
+    
     <div className="py-6">
+
       <div className="max-w-4xl mx-auto mb-16 text-center">
         <div className="inline-flex items-center justify-center p-2 bg-emerald-50 rounded-full mb-6">
           <div className="flex items-center text-emerald-700 text-sm font-medium px-3 py-1">
@@ -21,20 +49,52 @@ export default function Home() {
           </div>
         </div>
         <h1 className="text-4xl md:text-5xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-emerald-600 to-emerald-400">
-          Welcome to SG Combinator
+          SG Combinator
         </h1>
         <p className="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
           Connecting founders, mentors, and resources to build successful startups in St. Gallen.
         </p>
-        <div className="flex flex-wrap gap-4 justify-center">
-          <Button asChild size="lg" className="rounded-full px-8 bg-emerald-500 hover:bg-emerald-600">
-            <Link href="/auth/signup">Get Started</Link>
-          </Button>
-          <Button asChild size="lg" variant="outline" className="rounded-full px-8 border-emerald-200 text-emerald-700 hover:bg-emerald-50">
-            <Link href="#features">Learn More</Link>
-          </Button>
-        </div>
       </div>
+      
+      {/* Hot Topics Section */}
+      <section className="mb-10">
+        <div className="max-w-4xl mx-auto text-center mb-4">
+          <h2 className="text-2xl font-bold text-gray-800 flex items-center justify-center gap-2">
+            <p className="text-red-500" /> Hot Topics
+          </h2>
+        </div>
+
+        {/* Horizontal Scrollable Cards */}
+        <div className="flex overflow-x-auto gap-4 px-4 py-2 scrollbar-hide">
+          {hotTopics.map((topic, index) => (
+            <Link href={topic.link} key={index} className="min-w-[250px]">
+              <Card className="border border-gray-200 bg-white shadow-sm hover:shadow-md transition-all duration-300 p-4">
+                <CardContent className="flex flex-col items-center">
+                  <p className="text-emerald-500 w-8 h-8 mb-2" />
+                  <h3 className="text-lg font-semibold text-gray-800">{topic.title}</h3>
+                  <p className="text-sm text-gray-600">{topic.description}</p>
+                </CardContent>
+              </Card>
+            </Link>
+          ))}
+        </div>
+      </section>
+
+      <section className="max-w-4xl mx-auto text-center mb-16">
+        <h2 className="text-3xl font-bold">User Profile</h2>
+        <div className="flex justify-center mt-8"></div>
+        <UserProfile
+        profilePicUrl={user.profilePicUrl}
+        name={user.name}
+        bio={user.bio}
+        reputation={user.reputation}
+        goldCount={user.goldCount}
+        silverCount={user.silverCount}
+        bronzeCount={user.bronzeCount}
+        nextBadgeTasks={nextBadgeTasks}
+      />
+      </section>
+
 
       <div id="features" className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
         <FeatureCard 
@@ -112,7 +172,7 @@ function FeatureCard({
         <p className="text-gray-600 mb-4">{content}</p>
         <Link 
           href={href} 
-          className="inline-flex items-center font-medium text-emerald-600 hover:text-emerald-500"
+          className="mt-4 inline-flex items-center font-medium text-emerald-600 hover:text-emerald-500"
         >
           Learn more 
           <span className="ml-1 transform transition-transform duration-300 group-hover:translate-x-1">
