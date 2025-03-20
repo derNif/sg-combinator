@@ -1,4 +1,4 @@
-import { createServerClient } from '@supabase/ssr';
+import { createServerClient, type CookieOptions } from '@supabase/ssr';
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 import type { Database } from '@/types/supabase';
@@ -39,11 +39,10 @@ export async function middleware(req: NextRequest) {
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
     {
       cookies: {
-        get(name: string) {
-          const cookie = req.cookies.get(name)
-          return cookie?.value
+        parse(name) {
+          return req.cookies.get(name)?.value
         },
-        set(name: string, value: string, options: { path: string }) {
+        create(name, value, options) {
           res.cookies.set({
             name,
             value,
@@ -51,7 +50,7 @@ export async function middleware(req: NextRequest) {
             httpOnly: true
           })
         },
-        remove(name: string, options: { path: string }) {
+        remove(name, options) {
           res.cookies.set({
             name,
             value: '',
