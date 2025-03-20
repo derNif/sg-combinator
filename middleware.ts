@@ -33,6 +33,10 @@ const ONBOARDING_EXCLUDED_PATHS = [
 export async function middleware(req: NextRequest) {
   const res = NextResponse.next();
   
+  // Get hostname for cookie settings
+  const hostname = req.headers.get('host') || '';
+  const isLocalhost = hostname.includes('localhost');
+  
   // Create a Supabase client
   const supabase = createServerClient<Database>(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -43,21 +47,55 @@ export async function middleware(req: NextRequest) {
           return req.cookies.get(name)?.value
         },
         set(name, value, options) {
+          // Modify cookie options based on environment
+          const cookieOptions: CookieOptions = {
+            ...options,
+            httpOnly: true,
+            secure: !isLocalhost,
+            sameSite: 'lax',
+            path: '/'
+          };
+          
+          // Set the domain only in production
+          if (!isLocalhost) {
+            // Extract the domain from the hostname (remove port if present)
+            const domain = hostname.split(':')[0];
+            if (!domain.includes('localhost')) {
+              cookieOptions.domain = domain;
+            }
+          }
+          
           res.cookies.set({
             name,
             value,
-            ...options,
-            httpOnly: true
-          })
+            ...cookieOptions
+          });
         },
         remove(name, options) {
+          // Modify cookie options based on environment
+          const cookieOptions: CookieOptions = {
+            ...options,
+            maxAge: 0,
+            httpOnly: true,
+            secure: !isLocalhost,
+            sameSite: 'lax',
+            path: '/'
+          };
+          
+          // Set the domain only in production
+          if (!isLocalhost) {
+            // Extract the domain from the hostname (remove port if present)
+            const domain = hostname.split(':')[0];
+            if (!domain.includes('localhost')) {
+              cookieOptions.domain = domain;
+            }
+          }
+          
           res.cookies.set({
             name,
             value: '',
-            ...options,
-            maxAge: 0,
-            httpOnly: true
-          })
+            ...cookieOptions
+          });
         }
       }
     }
