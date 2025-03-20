@@ -1,5 +1,12 @@
 import { createServerClient, type CookieOptions } from '@supabase/ssr';
 import { NextRequest, NextResponse } from 'next/server';
+import { ResponseCookie } from 'next/dist/compiled/@edge-runtime/cookies';
+
+interface StoredCookie {
+  name: string;
+  value: string;
+  options: Partial<ResponseCookie>;
+}
 
 export async function GET(req: NextRequest) {
   const { searchParams } = new URL(req.url);
@@ -9,7 +16,7 @@ export async function GET(req: NextRequest) {
   if (code) {
     const hostname = req.headers.get('host') || '';
     const isLocalhost = hostname.includes('localhost');
-    const cookieStore = new Map<string, { name: string; value: string; options: any }>();
+    const cookieStore = new Map<string, StoredCookie>();
 
     const supabase = createServerClient(
       process.env.NEXT_PUBLIC_SUPABASE_URL!,
