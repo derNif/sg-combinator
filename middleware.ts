@@ -40,39 +40,15 @@ export async function middleware(req: NextRequest) {
     {
       cookies: {
         get(name: string) {
-          try {
-            return req.cookies.get(name)?.value;
-          } catch (error) {
-            console.error(`Error getting cookie ${name} in middleware:`, error);
-            return undefined;
-          }
+          return req.cookies.get(name)?.value
         },
-        set(name: string, value: string, options: { path: string; maxAge: number; sameSite: string }) {
-          try {
-            res.cookies.set({
-              name,
-              value,
-              ...options,
-              httpOnly: true,
-            });
-          } catch (error) {
-            console.error('Error setting cookie in middleware:', error);
-          }
+        set(name: string, value: string, options: { path?: string; domain?: string; maxAge?: number; httpOnly?: boolean; secure?: boolean; sameSite?: 'lax' | 'strict' | 'none' }) {
+          res.cookies.set(name, value, options)
         },
-        remove(name: string, options: { path: string }) {
-          try {
-            res.cookies.set({
-              name,
-              value: '',
-              ...options,
-              maxAge: 0,
-              httpOnly: true,
-            });
-          } catch (error) {
-            console.error('Error removing cookie in middleware:', error);
-          }
-        },
-      },
+        remove(name: string, options: { path?: string; domain?: string }) {
+          res.cookies.set(name, '', { ...options, maxAge: 0 })
+        }
+      }
     }
   );
   
