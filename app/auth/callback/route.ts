@@ -1,6 +1,5 @@
-import { createServerClient } from '@supabase/ssr';
+import { createServerClient, type CookieOptions } from '@supabase/ssr';
 import { NextRequest, NextResponse } from 'next/server';
-import { cookies } from 'next/headers';
 
 export async function GET(req: NextRequest) {
   const { searchParams } = new URL(req.url);
@@ -17,10 +16,10 @@ export async function GET(req: NextRequest) {
       process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
       {
         cookies: {
-          get(name) {
-            return req.cookies.get(name)?.value;
+          get: (name: string) => {
+            return req.cookies.get(name)?.value
           },
-          set(name, value, options) {
+          set: (name: string, value: string, options: CookieOptions) => {
             // Add production-specific cookie settings
             const cookieOptions = {
               ...options,
@@ -39,15 +38,13 @@ export async function GET(req: NextRequest) {
               }
             }
             
-            const response = NextResponse.next();
-            response.cookies.set({
+            req.cookies.set({
               name,
               value,
               ...cookieOptions
             });
-            return response;
           },
-          remove(name, options) {
+          remove: (name: string, options: CookieOptions) => {
             // Add production-specific cookie settings
             const cookieOptions = {
               ...options,
@@ -67,13 +64,11 @@ export async function GET(req: NextRequest) {
               }
             }
             
-            const response = NextResponse.next();
-            response.cookies.set({
+            req.cookies.set({
               name,
               value: '',
               ...cookieOptions
             });
-            return response;
           },
         },
       }
