@@ -21,7 +21,7 @@ export default function Home() {
           </div>
         </div>
         <h1 className="text-4xl md:text-5xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-emerald-600 to-emerald-400">
-          Welcome to SG Combinator
+          Welcome to SG Innovate
         </h1>
         <p className="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
           Connecting founders, mentors, and resources to build successful startups in St. Gallen.
@@ -41,7 +41,7 @@ export default function Home() {
           title="AI Consultant"
           description="Get AI-powered startup advice"
           icon={<IconRobot className="w-10 h-10 text-emerald-500" />}
-          content="Leverage our AI consultant to get personalized advice on your startup challenges, from business model validation to fundraising strategies."
+          content="Leverage our AI consultant to get personalized advice on your enterprise challenges, from business model validation to fundraising strategies."
           href="/ai-consultant"
         />
         
@@ -57,7 +57,7 @@ export default function Home() {
           title="Academy"
           description="Learn essential startup skills"
           icon={<IconSchool className="w-10 h-10 text-emerald-500" />}
-          content="Access curated resources, workshops, and mentorship to develop the skills needed to build a successful startup in today's competitive landscape."
+          content="Access curated resources, workshops, and mentorship to develop the skills needed to build a successful solutions in today's competitive landscape."
           href="/academy"
         />
 
@@ -65,7 +65,7 @@ export default function Home() {
           title="Job Listings"
           description="Find talent or opportunities in St. Gallen"
           icon={<IconBriefcase className="w-10 h-10 text-emerald-500" />}
-          content="Browse through job openings at local startups or post positions for your own venture. Connect with the best talent in the region."
+          content="Browse through job openings at local enterprises or post positions for your own venture. Connect with the best talent in the region."
           href="/jobs"
         />
       </div>
@@ -75,7 +75,7 @@ export default function Home() {
         <div className="max-w-2xl mx-auto pt-10 pb-12 px-4">
           <h2 className="text-2xl font-bold mb-4 text-emerald-800">Join the St. Gallen Startup Ecosystem</h2>
           <p className="text-gray-600 mb-8">
-            SG Combinator is where innovation meets opportunity. Connect with the most talented founders, mentors, and investors in St. Gallen.
+            SG Innovate is where innovation meets opportunity. Connect with the most talented founders, mentors, and investors in St. Gallen.
           </p>
           <Button asChild className="rounded-full px-8 bg-emerald-500 hover:bg-emerald-600">
             <Link href="/auth/signin">Sign In Now</Link>

@@ -118,7 +118,7 @@ export function Sidebar() {
                 transition={{ duration: 0.2 }}
                 className="font-semibold text-xl text-black overflow-hidden whitespace-nowrap"
               >
-                SG Combinator
+                SG Innovate
               </motion.span>
             </div>
             <div className="mt-6 px-2">
