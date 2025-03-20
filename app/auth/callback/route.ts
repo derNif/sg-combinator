@@ -36,7 +36,7 @@ export async function GET(req: NextRequest) {
             if (!isLocalhost) {
               const domain = hostname.split(':')[0];
               if (!domain.includes('localhost')) {
-                // @ts-ignore - domain is valid option
+                // @ts-expect-error - domain is valid option
                 cookieOptions.domain = domain;
               }
             }
@@ -58,7 +58,7 @@ export async function GET(req: NextRequest) {
             if (!isLocalhost) {
               const domain = hostname.split(':')[0];
               if (!domain.includes('localhost')) {
-                // @ts-ignore - domain is valid option
+                // @ts-expect-error - domain is valid option
                 cookieOptions.domain = domain;
               }
             }
