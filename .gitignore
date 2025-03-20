@@ -26,7 +26,7 @@
 
 # ai consultant data
 ai_consultant/data/
-ai_consultant/chroma
+ai_consultant/chroma/
 
 # debug
 npm-debug.log*

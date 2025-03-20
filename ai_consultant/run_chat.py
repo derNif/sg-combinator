@@ -71,7 +71,10 @@ def main():
             break
 
         # Search the DB.
-        results = db.similarity_search_with_relevance_scores(query_text, k=3)
+
+        past_chat = memory.load_memory_variables({})["history"]  # Get conversation history from memory
+
+        results = db.similarity_search_with_relevance_scores(past_chat + query_text, k=3)
         if len(results) == 0:
             print(f"Unable to find any matching results.")
             break
