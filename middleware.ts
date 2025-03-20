@@ -33,68 +33,40 @@ const ONBOARDING_EXCLUDED_PATHS = [
 export async function middleware(req: NextRequest) {
   const res = NextResponse.next();
   
-  // Get hostname for cookie settings
   const hostname = req.headers.get('host') || '';
   const isLocalhost = hostname.includes('localhost');
   
-  // Create a Supabase client
   const supabase = createServerClient<Database>(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
     {
       cookies: {
         get(name) {
-          return req.cookies.get(name)?.value
+          return req.cookies.get(name)?.value;
         },
         set(name, value, options) {
-          // Modify cookie options based on environment
-          const cookieOptions: CookieOptions = {
-            ...options,
-            httpOnly: true,
-            secure: !isLocalhost,
-            sameSite: 'lax',
-            path: '/'
-          };
-          
-          // Set the domain only in production
-          if (!isLocalhost) {
-            // Extract the domain from the hostname (remove port if present)
-            const domain = hostname.split(':')[0];
-            if (!domain.includes('localhost')) {
-              cookieOptions.domain = domain;
-            }
-          }
-          
           res.cookies.set({
             name,
             value,
-            ...cookieOptions
-          });
-        },
-        remove(name, options) {
-          // Modify cookie options based on environment
-          const cookieOptions: CookieOptions = {
             ...options,
-            maxAge: 0,
             httpOnly: true,
             secure: !isLocalhost,
             sameSite: 'lax',
-            path: '/'
-          };
-          
-          // Set the domain only in production
-          if (!isLocalhost) {
-            // Extract the domain from the hostname (remove port if present)
-            const domain = hostname.split(':')[0];
-            if (!domain.includes('localhost')) {
-              cookieOptions.domain = domain;
-            }
-          }
-          
+            path: '/',
+            domain: isLocalhost ? undefined : hostname.split(':')[0]
+          });
+        },
+        remove(name, options) {
           res.cookies.set({
             name,
             value: '',
-            ...cookieOptions
+            ...options,
+            httpOnly: true,
+            secure: !isLocalhost,
+            sameSite: 'lax',
+            path: '/',
+            domain: isLocalhost ? undefined : hostname.split(':')[0],
+            maxAge: 0
           });
         }
       }
@@ -119,26 +91,17 @@ export async function middleware(req: NextRequest) {
   }
   
   try {
-    // Check authentication
-    const {
-      data: { session },
-      error: sessionError
-    } = await supabase.auth.getSession();
-    
-    if (sessionError) {
-      console.error('Error getting session in middleware:', sessionError);
-      const redirectUrl = new URL('/auth/signin', req.url);
-      redirectUrl.searchParams.set('redirectTo', pathname);
-      return NextResponse.redirect(redirectUrl);
+    const { data: { session }, error } = await supabase.auth.getSession();
+
+    if (error) {
+      console.error('Error checking auth session:', error);
     }
-    
-    // If there's no session and the path is protected, redirect to login
-    if (!session && isProtectedPath) {
-      const redirectUrl = new URL('/auth/signin', req.url);
-      redirectUrl.searchParams.set('redirectTo', pathname);
-      return NextResponse.redirect(redirectUrl);
+
+    // Handle protected routes
+    if (pathname.startsWith('/protected') && !session) {
+      return NextResponse.redirect(new URL('/auth/signin', req.url));
     }
-    
+
     // Check if user needs to complete onboarding
     const shouldCheckOnboarding = session && 
       ONBOARDING_REQUIRED_PATHS.some(path => pathname.startsWith(path)) &&
@@ -164,9 +127,9 @@ export async function middleware(req: NextRequest) {
         console.error('Error checking onboarding status:', error);
       }
     }
-  } catch (error) {
-    console.error('Unexpected error in middleware:', error);
-    // On error, allow the request to proceed rather than breaking user experience
+  } catch (e) {
+    console.error('Error in middleware:', e);
+    return res;
   }
   
   return res;
