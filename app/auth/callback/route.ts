@@ -9,7 +9,8 @@ export async function GET(req: NextRequest) {
   if (code) {
     const hostname = req.headers.get('host') || '';
     const isLocalhost = hostname.includes('localhost');
-    
+    const cookieStore = new Map<string, { name: string; value: string; options: any }>();
+
     const supabase = createServerClient(
       process.env.NEXT_PUBLIC_SUPABASE_URL!,
       process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
@@ -19,30 +20,32 @@ export async function GET(req: NextRequest) {
             return req.cookies.get(name)?.value;
           },
           set: (name: string, value: string, options: CookieOptions) => {
-            const response = NextResponse.next();
-            response.cookies.set({
+            cookieStore.set(name, {
               name,
               value,
-              ...options,
-              httpOnly: true,
-              secure: !isLocalhost,
-              sameSite: 'lax',
-              path: '/',
-              domain: isLocalhost ? undefined : hostname.split(':')[0]
+              options: {
+                ...options,
+                httpOnly: true,
+                secure: !isLocalhost,
+                sameSite: 'lax',
+                path: '/',
+                domain: isLocalhost ? undefined : hostname.split(':')[0]
+              }
             });
           },
           remove: (name: string, options: CookieOptions) => {
-            const response = NextResponse.next();
-            response.cookies.set({
+            cookieStore.set(name, {
               name,
               value: '',
-              ...options,
-              httpOnly: true,
-              secure: !isLocalhost,
-              sameSite: 'lax',
-              path: '/',
-              domain: isLocalhost ? undefined : hostname.split(':')[0],
-              maxAge: 0
+              options: {
+                ...options,
+                httpOnly: true,
+                secure: !isLocalhost,
+                sameSite: 'lax',
+                path: '/',
+                domain: isLocalhost ? undefined : hostname.split(':')[0],
+                maxAge: 0
+              }
             });
           }
         }
@@ -54,13 +57,28 @@ export async function GET(req: NextRequest) {
       
       if (error) {
         console.error('Error exchanging code for session:', error);
-        return NextResponse.redirect(new URL(`/auth/signin?error=${encodeURIComponent(error.message)}`, req.url));
+        const errorResponse = NextResponse.redirect(new URL(`/auth/signin?error=${encodeURIComponent(error.message)}`, req.url));
+        // Apply any cookies that were set during the error handling
+        for (const cookie of cookieStore.values()) {
+          errorResponse.cookies.set(cookie.name, cookie.value, cookie.options);
+        }
+        return errorResponse;
       }
 
-      return NextResponse.redirect(new URL(next, req.url));
+      const response = NextResponse.redirect(new URL(next, req.url));
+      // Apply all collected cookies to the final response
+      for (const cookie of cookieStore.values()) {
+        response.cookies.set(cookie.name, cookie.value, cookie.options);
+      }
+      return response;
     } catch (error) {
       console.error('Unexpected error in auth callback:', error);
-      return NextResponse.redirect(new URL('/auth/signin?error=unexpected_error', req.url));
+      const errorResponse = NextResponse.redirect(new URL('/auth/signin?error=unexpected_error', req.url));
+      // Apply any cookies that were set during the error handling
+      for (const cookie of cookieStore.values()) {
+        errorResponse.cookies.set(cookie.name, cookie.value, cookie.options);
+      }
+      return errorResponse;
     }
   }
 
