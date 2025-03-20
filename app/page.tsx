@@ -10,6 +10,7 @@ import {
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import UserProfile from "@/components/UserProfile";
+import MessageBox from "@/components/MessageBox";
 
 // Hot Topics Data
 const hotTopics = [
@@ -37,6 +38,7 @@ export default function Home() {
     "Post 3 more startup ideas",
     "Participate in a startup event",
   ];
+
   return (
     
     <div className="py-6">
@@ -80,6 +82,7 @@ export default function Home() {
         </div>
       </section>
 
+      
       <section className="max-w-4xl mx-auto text-center mb-16">
         <h2 className="text-3xl font-bold">User Profile</h2>
         <div className="flex justify-center mt-8"></div>
