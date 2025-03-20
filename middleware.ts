@@ -40,13 +40,25 @@ export async function middleware(req: NextRequest) {
     {
       cookies: {
         get(name: string) {
-          return req.cookies.get(name)?.value
+          const cookie = req.cookies.get(name)
+          return cookie?.value
         },
-        set(name: string, value: string, options: { path?: string; domain?: string; maxAge?: number; httpOnly?: boolean; secure?: boolean; sameSite?: 'lax' | 'strict' | 'none' }) {
-          res.cookies.set(name, value, options)
+        set(name: string, value: string, options: { path: string }) {
+          res.cookies.set({
+            name,
+            value,
+            ...options,
+            httpOnly: true
+          })
         },
-        remove(name: string, options: { path?: string; domain?: string }) {
-          res.cookies.set(name, '', { ...options, maxAge: 0 })
+        remove(name: string, options: { path: string }) {
+          res.cookies.set({
+            name,
+            value: '',
+            ...options,
+            maxAge: 0,
+            httpOnly: true
+          })
         }
       }
     }
