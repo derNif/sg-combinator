@@ -10,6 +10,7 @@ import {
   IconSettings, 
   IconBell 
 } from "@tabler/icons-react";
+import LogoutButton from "./components/LogoutButton";
 
 export default async function ProfilePage() {
   const supabase = createServerSupabaseClient();
@@ -44,16 +45,7 @@ export default async function ProfilePage() {
                 </div>
               </CardContent>
               <CardFooter className="flex justify-center border-t pt-4">
-                <form action="/auth/signout" method="post">
-                  <Button 
-                    type="submit" 
-                    variant="outline" 
-                    className="text-gray-700 hover:text-red-600 hover:border-red-200 flex items-center gap-2"
-                  >
-                    <IconLogout size={18} />
-                    Sign Out
-                  </Button>
-                </form>
+                <LogoutButton />
               </CardFooter>
             </Card>
           </div>
