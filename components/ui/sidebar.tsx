@@ -12,7 +12,6 @@ import {
   IconSchool,
   IconBrandHipchat,
   IconLogin,
-  IconLogout,
   IconMenu2,
   IconX,
   IconLeaf,
@@ -103,11 +102,6 @@ export function Sidebar() {
       requiresAuth: true
     }
   ];
-
-  const handleSignOut = async () => {
-    await signOut();
-    router.push("/");
-  };
   
   return (
     <SidebarProvider open={open} setOpen={setOpen}>

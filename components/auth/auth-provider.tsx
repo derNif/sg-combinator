@@ -2,19 +2,19 @@
 
 import { createContext, useContext, useEffect, useState } from "react";
 import { createClient } from "@/lib/supabase";
-import { Session, User } from "@supabase/supabase-js";
+import { Session, User, AuthError } from "@supabase/supabase-js";
 
 type AuthContextType = {
   user: User | null;
   session: Session | null;
   loading: boolean;
   signUp: (email: string, password: string) => Promise<{
-    error: any;
-    data: any;
+    error: AuthError | null;
+    data: { user: User | null; session: Session | null } | null;
   }>;
   signIn: (email: string, password: string) => Promise<{
-    error: any;
-    data: any;
+    error: AuthError | null;
+    data: { user: User | null; session: Session | null } | null;
   }>;
   signOut: () => Promise<void>;
 };
@@ -39,7 +39,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     return () => {
       subscription.unsubscribe();
     };
-  }, []);
+  }, [supabase.auth]);
 
   const signUp = async (email: string, password: string) => {
     return await supabase.auth.signUp({

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useAuth } from "./auth-provider";
 import { Button } from "../ui/button";
@@ -31,8 +31,8 @@ export function SignInForm() {
       } else {
         router.push(redirectPath);
       }
-    } catch (err: any) {
-      setError(err.message);
+    } catch (err: unknown) {
+      setError(err instanceof Error ? err.message : 'An unknown error occurred');
     } finally {
       setLoading(false);
     }
@@ -97,7 +97,7 @@ export function SignInForm() {
       </CardContent>
       <CardFooter className="flex justify-center border-t pt-4">
         <p className="text-sm text-gray-600">
-          Don't have an account?{" "}
+          Don&apos;t have an account?{" "}
           <a href={`/auth/signup${redirectPath !== "/" ? `?redirect=${redirectPath}` : ""}`} className="text-emerald-600 font-medium hover:text-emerald-500">
             Sign Up
           </a>

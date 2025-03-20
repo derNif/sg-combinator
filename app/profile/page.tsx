@@ -117,7 +117,7 @@ export default async function ProfilePage() {
                 </CardHeader>
                 <CardContent>
                   <p className="text-gray-600">
-                    We're working on adding more profile management features like bio information, 
+                    We&apos;re working on adding more profile management features like bio information, 
                     profile picture uploads, and integration with the SG Combinator platform.
                   </p>
                 </CardContent>

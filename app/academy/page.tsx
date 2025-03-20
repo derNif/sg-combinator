@@ -23,7 +23,7 @@ export default async function AcademyPage() {
             <CardTitle>Current Courses</CardTitle>
           </CardHeader>
           <CardContent>
-            <p className="text-sm text-gray-600 mb-4">Courses you're currently enrolled in</p>
+            <p className="text-sm text-gray-600 mb-4">Courses you&apos;re currently enrolled in</p>
             <div className="p-8 border rounded-md flex items-center justify-center">
               <p>Course content coming soon...</p>
             </div>
