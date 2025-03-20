@@ -17,7 +17,7 @@ export function SignInForm() {
   const [loading, setLoading] = useState(false);
   const router = useRouter();
   const searchParams = useSearchParams();
-  const redirectPath = searchParams.get("redirectTo") || "/";
+  const redirectPath = searchParams?.get("redirectTo") || "/";
   const { signIn } = useAuth();
   const supabase = createClient();
 

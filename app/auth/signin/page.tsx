@@ -1,5 +1,6 @@
 import { SignInForm } from "@/components/auth/signin-form";
 import Image from "next/image";
+import { Suspense } from "react";
 
 export default function SignInPage() {
   return (
@@ -12,7 +13,11 @@ export default function SignInPage() {
           <h1 className="text-3xl font-bold text-center">Welcome Back</h1>
           <p className="text-gray-500 mt-2">Sign in to continue to SG Combinator</p>
         </div>
-        <SignInForm />
+        <Suspense fallback={
+          <div className="w-full h-[400px] rounded-lg bg-gray-100 animate-pulse" />
+        }>
+          <SignInForm />
+        </Suspense>
       </div>
     </div>
   );
