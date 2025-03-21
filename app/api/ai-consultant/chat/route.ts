@@ -3,6 +3,12 @@ import { NextResponse } from 'next/server';
 const API_BASE_URL = "https://polished-kingfish-intensely.ngrok-free.app";
 const INVOKE_CHAT_ENDPOINT = `${API_BASE_URL}/invoke_chat`;
 
+// Custom error interface
+interface ApiError extends Error {
+  name: string;
+  message: string;
+}
+
 export async function POST(request: Request) {
   try {
     // Get the prompt from the request
@@ -38,15 +44,16 @@ export async function POST(request: Request) {
     }
     
     return NextResponse.json({ success: true, response: data.response });
-  } catch (error: any) {
-    console.error("Server-side chat error:", error.message);
+  } catch (error: unknown) {
+    const err = error as ApiError;
+    console.error("Server-side chat error:", err.message);
     
     let errorType = "UNKNOWN_ERROR";
-    if (error.name === "AbortError") {
+    if (err.name === "AbortError") {
       errorType = "TIMEOUT_ERROR";
-    } else if (error.message?.includes("fetch failed")) {
+    } else if (err.message?.includes("fetch failed")) {
       errorType = "NETWORK_ERROR";
-    } else if (error.message?.includes("Invalid response format")) {
+    } else if (err.message?.includes("Invalid response format")) {
       errorType = "FORMAT_ERROR";
     }
     
@@ -54,7 +61,7 @@ export async function POST(request: Request) {
       { 
         success: false, 
         error: errorType,
-        message: error.message
+        message: err.message
       },
       { status: 500 }
     );

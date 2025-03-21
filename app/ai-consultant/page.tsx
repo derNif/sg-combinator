@@ -28,6 +28,12 @@ interface Conversation {
   timestamp: number;
 }
 
+// Custom error type
+interface ApiError extends Error {
+  name: string;
+  message: string;
+}
+
 // Utility for API sanity check
 async function sanityCheck() {
     try {
@@ -49,18 +55,19 @@ async function sanityCheck() {
         return result.success 
             ? { success: true, data: result.data }
             : { success: false, error: result.error };
-    } catch (error: any) {
+    } catch (error: unknown) {
         // Handle specific error types
         let errorCode = "SANITY-02";
+        const err = error as ApiError;
         
-        if (error.name === "AbortError") {
+        if (err.name === "AbortError") {
             errorCode = "SANITY-TIMEOUT";
             console.error(`${errorCode}: Request timed out`);
-        } else if (error.message?.includes("Failed to fetch")) {
+        } else if (err.message?.includes("Failed to fetch")) {
             errorCode = "SANITY-NETWORK";
             console.error(`${errorCode}: Network error - Could not reach internal API`);
         } else {
-            console.error(`${errorCode}: Error fetching data:`, error);
+            console.error(`${errorCode}: Error fetching data:`, err);
         }
         
         return { success: false, error: errorCode };
@@ -280,22 +287,23 @@ export default function AIConsultantPage() {
               return [finalConversation, ...prev];
             });
             
-        } catch (error: any) {
+        } catch (error: unknown) {
             console.error("CHAT-04: Error:", error);
             
             // Set specific error ID based on error
             let errorMessage = "I'm sorry, I encountered an error processing your request. Please try again.";
             let id = "UNKNOWN";
+            const err = error as ApiError;
             
-            if (error.name === "AbortError") {
+            if (err.name === "AbortError") {
                 id = "TIMEOUT-ERROR";
                 errorMessage = "The request took too long and timed out. Please try again.";
-            } else if (error.message) {
-                if (error.message.includes("CHAT-02")) {
+            } else if (err.message) {
+                if (err.message.includes("CHAT-02")) {
                     id = "API-STATUS-ERROR";
-                } else if (error.message.includes("CHAT-03")) {
+                } else if (err.message.includes("CHAT-03")) {
                     id = "API-RESPONSE-FORMAT";
-                } else if (error.message.includes("Failed to fetch")) {
+                } else if (err.message.includes("Failed to fetch")) {
                     id = "NETWORK-ERROR";
                     errorMessage = "Network error: Could not reach the AI service. Please try again later.";
                 } else {
