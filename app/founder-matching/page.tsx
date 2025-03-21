@@ -26,7 +26,7 @@ export default function FounderMatchingPage() {
       <div className="container py-8">
         <h1 className="text-3xl font-bold mb-6">Founder Matching</h1>
         <p className="text-lg mb-8">
-          Find the perfect founder for your startup based on skills, experience, and vision alignment.
+          Find the perfect founder for your project based on skills, experience, and vision alignment.
         </p>
         <Card className="bg-white/80 backdrop-blur-sm border border-gray-100">
           {/* Empty shell that matches layout */}
@@ -46,7 +46,7 @@ export default function FounderMatchingPage() {
     <div className="container py-8">
       <h1 className="text-3xl font-bold mb-6">Founder Matching</h1>
       <p className="text-lg mb-8">
-        Find the perfect founder for your startup based on skills, experience, and vision alignment.
+        Find the perfect founder for your project based on skills, experience, and vision alignment.
       </p>
 
       {!hasCompletedOnboarding ? (

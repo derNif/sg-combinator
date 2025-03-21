@@ -24,7 +24,7 @@ export default function Home() {
           Welcome to SG Innovate
         </h1>
         <p className="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
-          Connecting founders, mentors, and resources to build successful startups in St. Gallen.
+          Connecting founders, mentors, and resources to build successful projects in St. Gallen.
         </p>
         <div className="flex flex-wrap gap-4 justify-center">
           <Button asChild size="lg" className="rounded-full px-8 bg-emerald-500 hover:bg-emerald-600">
@@ -39,7 +39,7 @@ export default function Home() {
       <div id="features" className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
         <FeatureCard 
           title="AI Consultant"
-          description="Get AI-powered startup advice"
+          description="Get AI-powered consulting"
           icon={<IconRobot className="w-10 h-10 text-emerald-500" />}
           content="Leverage our AI consultant to get personalized advice on your enterprise challenges, from business model validation to fundraising strategies."
           href="/ai-consultant"
@@ -47,7 +47,7 @@ export default function Home() {
         
         <FeatureCard 
           title="Founder Matching"
-          description="Find the perfect founder for your startup"
+          description="Find your business soulmate"
           icon={<IconUsers className="w-10 h-10 text-emerald-500" />}
           content="Connect with potential founders based on skills, experience, and vision alignment. Our matching algorithm helps you find the right partner for your startup journey."
           href="/founder-matching"
@@ -55,7 +55,7 @@ export default function Home() {
 
         <FeatureCard 
           title="Academy"
-          description="Learn essential startup skills"
+          description="Learn essential skills"
           icon={<IconSchool className="w-10 h-10 text-emerald-500" />}
           content="Access curated resources, workshops, and mentorship to develop the skills needed to build a successful solutions in today's competitive landscape."
           href="/academy"
@@ -73,7 +73,7 @@ export default function Home() {
       <div className="text-center pb-8 relative">
         <div className="absolute inset-0 bg-emerald-50 rounded-3xl -z-10"></div>
         <div className="max-w-2xl mx-auto pt-10 pb-12 px-4">
-          <h2 className="text-2xl font-bold mb-4 text-emerald-800">Join the St. Gallen Startup Ecosystem</h2>
+          <h2 className="text-2xl font-bold mb-4 text-emerald-800">Join the St. Gallen Innovation Ecosystem</h2>
           <p className="text-gray-600 mb-8">
             SG Innovate is where innovation meets opportunity. Connect with the most talented founders, mentors, and investors in St. Gallen.
           </p>

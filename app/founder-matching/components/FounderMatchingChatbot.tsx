@@ -32,7 +32,7 @@ export default function FounderMatchingChatbot({ onComplete }: FounderMatchingCh
     initialMessages: [{
       id: 'welcome',
       role: 'assistant',
-      content: "Hi there! I'll help you find the perfect co-founder. I'll ask you 3 quick questions to understand what you're looking for. What industry or sector is your startup in?",
+      content: "Hi there! I'll help you find the perfect co-founder. I'll ask you 3 quick questions to understand what you're looking for. What industry or sector is your company in?",
     }],
     body: {
       systemPrompt: SYSTEM_PROMPT

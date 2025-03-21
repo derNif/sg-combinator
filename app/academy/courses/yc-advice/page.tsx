@@ -59,7 +59,7 @@ const ycAdviceContent = [
 const quizQuestions = [
   {
     id: 1,
-    question: "According to YC&apos;s advice, when should you launch your product?",
+    question: "According to YC, when should you launch your product?",
     options: [
       "As soon as you have a minimum viable product",
       "After extensive private beta testing",
@@ -81,7 +81,7 @@ const quizQuestions = [
   },
   {
     id: 3,
-    question: "What does 'Do Things That Don&apos;t Scale' mean?",
+    question: "What does 'Do Things That Dont Scale' mean?",
     options: [
       "Focus on small markets first",
       "Manually provide extraordinary service to early users",
@@ -157,7 +157,7 @@ export default async function YCAdvicePage() {
                 />
                 <InfoCard
                   icon={<IconBulb size={20} />}
-                  title="What You&apos;ll Learn"
+                  title="What You will Learn"
                   description="Proven strategies for startup success"
                 />
                 <InfoCard
@@ -191,7 +191,7 @@ export default async function YCAdvicePage() {
                   </Button>
                 </div>
                 <div className="mt-6 pt-6 border-t">
-                  <h3 className="font-medium mb-2">What&apos;s Included</h3>
+                  <h3 className="font-medium mb-2">What is Included</h3>
                   <ul className="space-y-2">
                     <FeatureItem text="22 Startup Advice Lessons" />
                     <FeatureItem text="Real-world YC Company Examples" />
